@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["XJDXJS537H.net.greenorion.golf"],
+        "components": [
+          {
+            "/": "/teeapart/i/*",
+            "comment": "Tee Apart invite links open the app; the rest of greenorion.net stays in the browser."
+          }
+        ]
+      }
+    ]
+  }
+}

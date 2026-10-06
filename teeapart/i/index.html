@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You're invited to Tee Apart</title>
+  <meta name="description" content="Ryder Cup-style golf matches with friends, each on your own course. iPhone only, in beta.">
+  <!-- An invite page: one per invite, never indexed. -->
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#1F4A38">
+
+  <!-- The preview card in WhatsApp, Messages and other apps (Open Graph). -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Tee Apart">
+  <meta property="og:title" content="You're invited to Tee Apart">
+  <meta property="og:description" content="Ryder Cup-style golf matches with friends, each on your own course.">
+  <meta property="og:url" content="https://greenorion.net/teeapart/i/">
+  <meta property="og:image" content="https://greenorion.net/teeapart/i/card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Tee Apart icon and the words: You're invited to Tee Apart">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="apple-touch-icon" href="/teeapart/i/icon-180.png">
+  <link rel="icon" type="image/png" href="/teeapart/i/icon-180.png">
+
+  <style>
+    :root {
+      --forest:      #1F4A38;
+      --forest-deep: #173A2C;
+      --cream:       #F6F3EA;
+      --pale:        #D3E3D8;
+      --gold:        #E2A93B;
+      --gold-ink:    #2A1F08;
+      --ink:         #23262A;
+      --muted:       #5E625C;
+      --rule:        #E4E7E1;
+      --bg:          #FBFAF7;
+      --font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); color: var(--ink); background: var(--bg); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+    a { color: #2E6B50; }
+    a:hover { color: #22533D; }
+
+    header { background: radial-gradient(120% 140% at 30% 20%, #2A5E47 0%, var(--forest-deep) 100%); color: var(--cream); padding: 48px 20px 40px; }
+    .wrap { max-width: 560px; margin: 0 auto; }
+    .mark { width: 72px; height: 72px; border-radius: 16px; display: block; margin-bottom: 20px; }
+    .eyebrow { font-size: 0.95rem; color: var(--pale); }
+    h1 { font-size: 2.1rem; line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; margin: 4px 0 12px; }
+    .lead { color: var(--pale); font-size: 1.02rem; }
+
+    main { padding: 28px 20px 48px; }
+    section { background: #FFFFFF; border: 1px solid var(--rule); border-radius: 14px; padding: 22px 20px; margin-bottom: 18px; }
+    h2 { font-size: 1.15rem; font-weight: 650; margin-bottom: 10px; }
+    p { margin-bottom: 10px; }
+    p:last-child { margin-bottom: 0; }
+    .small { font-size: 0.92rem; color: var(--muted); }
+
+    .buttons { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 12px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 20px; border-radius: 999px; font: inherit; font-weight: 600; font-size: 1rem; text-decoration: none; cursor: pointer; border: 1.5px solid transparent; }
+    .btn-gold { background: var(--gold); color: var(--gold-ink); }
+    .btn-gold:hover { background: #C9922B; color: var(--gold-ink); }
+    .btn-line { background: transparent; color: var(--forest); border-color: var(--forest); }
+    .btn-line:hover { background: #E3EEE7; color: var(--forest); }
+
+    ol { list-style: none; counter-reset: step; }
+    ol li { counter-increment: step; position: relative; padding-left: 40px; margin-bottom: 16px; }
+    ol li:last-child { margin-bottom: 0; }
+    ol li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; background: #E3EEE7; color: var(--forest); font-weight: 700; font-size: 0.92rem; display: flex; align-items: center; justify-content: center; }
+    ol .btn { margin-top: 8px; }
+
+    [hidden] { display: none !important; }
+    .status { font-size: 0.92rem; color: var(--forest); min-height: 1.4em; }
+
+    footer { padding: 0 20px 40px; }
+    footer p { font-size: 0.88rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <img class="mark" src="/teeapart/i/icon-180.png" alt="" width="72" height="72">
+      <p class="eyebrow">You're invited to</p>
+      <h1>Tee Apart</h1>
+      <p class="lead">Ryder Cup-style golf matches with friends, each on your own course. iPhone only, in beta.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="have-app">
+      <h2>Have Tee Apart?</h2>
+      <div class="buttons" id="invite-buttons">
+        <a class="btn btn-gold" id="open-app" href="#">Open in Tee Apart</a>
+        <button class="btn btn-line" id="copy-invite" type="button">Copy invite</button>
+      </div>
+      <p class="status" id="copy-status" role="status" aria-live="polite"></p>
+      <p class="small" id="have-app-hint">Or in the app: Home → <strong>Invite code</strong>, then paste the invite or type the code from the message you got.</p>
+      <p class="small" id="no-id" hidden>This invite link is incomplete. Ask for it again, or type the code from the message in the app: Home → <strong>Invite code</strong>.</p>
+    </section>
+
+    <section>
+      <h2>New to Tee Apart?</h2>
+      <ol>
+        <li>
+          <strong>Install TestFlight</strong>, Apple's app for apps in beta.<br>
+          <a class="btn btn-line" href="https://apps.apple.com/app/testflight/id899247664">Get TestFlight</a>
+        </li>
+        <li>
+          <strong>Join the Tee Apart beta.</strong>
+          <span id="beta-ask">Ask whoever invited you to add you; TestFlight then sends you an email.</span>
+          <span id="beta-join" hidden><br><a class="btn btn-gold" id="beta-link" href="#">Join the beta</a></span>
+        </li>
+        <li>
+          <strong>Open Tee Apart and sign in with Apple.</strong> Then come back to this page and tap <strong>Open in Tee Apart</strong>, or tap the invite link in your message again.
+        </li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <p>Tee Apart by Green Orion · <a href="/teeapart/">About Tee Apart</a> · <a href="/teeapart/privacy/">Privacy</a></p>
+  </footer>
+
+  <script>
+    // The TestFlight public link, once Apple's Beta App Review has passed the
+    // first build for outside testers (B-14, D2). Empty: step 2 says to ask.
+    var BETA_LINK = '';
+
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var id = params.get('id') || '';
+      var valid = /^[A-Za-z0-9]{20}$/.test(id);
+
+      var openApp = document.getElementById('open-app');
+      var copy = document.getElementById('copy-invite');
+      var status = document.getElementById('copy-status');
+
+      if (!valid) {
+        document.getElementById('invite-buttons').hidden = true;
+        document.getElementById('have-app-hint').hidden = true;
+        document.getElementById('no-id').hidden = false;
+      } else {
+        var link = 'https://greenorion.net/teeapart/i/?id=' + id;
+        // The app's own address: iOS asks "Open in Tee Apart?" from any browser,
+        // the one inside WhatsApp included.
+        openApp.href = 'teeapart://invite?id=' + id;
+        copy.addEventListener('click', function () {
+          var done = function () { status.textContent = 'Copied. Paste it in Tee Apart: Home → Invite code.'; };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(link).then(done, function () { status.textContent = link; });
+          } else {
+            status.textContent = link;
+          }
+        });
+      }
+
+      if (BETA_LINK) {
+        document.getElementById('beta-ask').hidden = true;
+        document.getElementById('beta-join').hidden = false;
+        document.getElementById('beta-link').href = BETA_LINK;
+      }
+    })();
+  </script>
+</body>
+</html>
