@@ -90,13 +90,13 @@
   <main class="wrap">
     <section id="have-app">
       <h2>Have Tee Apart?</h2>
-      <div class="buttons" id="invite-buttons">
+      <div class="buttons" id="invite-buttons" hidden>
         <a class="btn btn-gold" id="open-app" href="#">Open in Tee Apart</a>
         <button class="btn btn-line" id="copy-invite" type="button">Copy invite</button>
       </div>
-      <p class="status" id="copy-status" role="status" aria-live="polite"></p>
-      <p class="small" id="have-app-hint">Or in the app: Home → <strong>Invite code</strong>, then paste the invite or type the code from the message you got.</p>
-      <p class="small" id="no-id" hidden>This invite link is incomplete. Ask for it again, or type the code from the message in the app: Home → <strong>Invite code</strong>.</p>
+      <p class="status" id="copy-status" role="status" aria-live="polite" hidden></p>
+      <p class="small" id="have-app-hint" hidden>Or in the app: Home → <strong>Invite code</strong>, then paste the invite or type the code from the message you got.</p>
+      <p class="small" id="no-id">This page opens from an invite link, and this address carries no invite. Tap the link in the message you got, or type its code in the app: Home → <strong>Invite code</strong>.</p>
     </section>
 
     <section>
@@ -112,7 +112,7 @@
           <span id="beta-join" hidden><br><a class="btn btn-gold" id="beta-link" href="#">Join the beta</a></span>
         </li>
         <li>
-          <strong>Open Tee Apart and sign in with Apple.</strong> Then come back to this page and tap <strong>Open in Tee Apart</strong>, or tap the invite link in your message again.
+          <strong>Open Tee Apart and sign in with Apple.</strong> Then <span id="step3-page" hidden>come back to this page and tap <strong>Open in Tee Apart</strong>, or </span>tap the invite link in your message again, or type its code: Home → <strong>Invite code</strong>.
         </li>
       </ol>
     </section>
@@ -136,11 +136,14 @@
       var copy = document.getElementById('copy-invite');
       var status = document.getElementById('copy-status');
 
-      if (!valid) {
-        document.getElementById('invite-buttons').hidden = true;
-        document.getElementById('have-app-hint').hidden = true;
-        document.getElementById('no-id').hidden = false;
-      } else {
+      // Without a valid invite in the address (or without JavaScript) the
+      // page shows no invite buttons: they appear only for a real invite id.
+      if (valid) {
+        document.getElementById('invite-buttons').hidden = false;
+        document.getElementById('have-app-hint').hidden = false;
+        document.getElementById('copy-status').hidden = false;
+        document.getElementById('step3-page').hidden = false;
+        document.getElementById('no-id').hidden = true;
         var link = 'https://greenorion.net/teeapart/i/?id=' + id;
         // The app's own address: iOS asks "Open in Tee Apart?" from any browser,
         // the one inside WhatsApp included.
