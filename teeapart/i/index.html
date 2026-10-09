@@ -129,11 +129,15 @@
 
     (function () {
       // The invite is after the # (#id=…), which a browser never sends to
-      // the website; ?id=… is read too.
+      // the website; ?id=… is read too. A team event's link carries
+      // #event=… instead (B-19): the same page, opening the event.
       var fromHash = new URLSearchParams(window.location.hash.replace(/^#/, ''));
       var fromQuery = new URLSearchParams(window.location.search);
       var id = fromHash.get('id') || fromQuery.get('id') || '';
-      var valid = /^[A-Za-z0-9]{20}$/.test(id);
+      var eventId = fromHash.get('event') || fromQuery.get('event') || '';
+      var isInvite = /^[A-Za-z0-9]{20}$/.test(id);
+      var isEvent = !isInvite && /^[a-z0-9]{20}$/.test(eventId);
+      var valid = isInvite || isEvent;
 
       var openApp = document.getElementById('open-app');
       var copy = document.getElementById('copy-invite');
@@ -147,10 +151,12 @@
         document.getElementById('copy-status').hidden = false;
         document.getElementById('step3-page').hidden = false;
         document.getElementById('no-id').hidden = true;
-        var link = 'https://greenorion.net/teeapart/i/#id=' + id;
+        var link = isEvent
+          ? 'https://greenorion.net/teeapart/i/#event=' + eventId
+          : 'https://greenorion.net/teeapart/i/#id=' + id;
         // The app's own address: iOS asks "Open in Tee Apart?" from any browser,
         // the one inside WhatsApp included.
-        openApp.href = 'teeapart://invite?id=' + id;
+        openApp.href = isEvent ? 'teeapart://event?id=' + eventId : 'teeapart://invite?id=' + id;
         copy.addEventListener('click', function () {
           var done = function () { status.textContent = 'Copied. Paste it in Tee Apart: Home → Invite code.'; };
           if (navigator.clipboard && navigator.clipboard.writeText) {
