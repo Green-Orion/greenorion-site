@@ -96,6 +96,7 @@
       </div>
       <p class="status" id="copy-status" role="status" aria-live="polite" hidden></p>
       <p class="small" id="have-app-hint" hidden>Or in the app: Home → <strong>Invite code</strong>, then paste the invite or type the code from the message you got.</p>
+      <p class="small" id="have-app-qr" hidden>Or in the app: Home → <strong>Invite code</strong>, then type <strong class="qr-code"></strong>.</p>
       <p class="small" id="no-id">This page opens from an invite link, and this address carries no invite. Tap the link in the message you got, or type its code in the app: Home → <strong>Invite code</strong>.</p>
     </section>
 
@@ -112,7 +113,7 @@
           <span id="beta-join" hidden><br><a class="btn btn-gold" id="beta-link" href="#">Join the beta</a></span>
         </li>
         <li>
-          <strong>Open Tee Apart and sign in with Apple.</strong> Then <span id="step3-page" hidden>come back to this page and tap <strong>Open in Tee Apart</strong>, or </span>tap the invite link in your message again, or type its code: Home → <strong>Invite code</strong>.
+          <strong>Open Tee Apart and sign in with Apple.</strong> <span id="step3-link">Then <span id="step3-page" hidden>come back to this page and tap <strong>Open in Tee Apart</strong>, or </span>tap the invite link in your message again, or type its code: Home → <strong>Invite code</strong>.</span><span id="step3-qr" hidden>Then scan the QR code again, or type <strong class="qr-code"></strong>: Home → <strong>Invite code</strong>.</span>
         </li>
       </ol>
     </section>
@@ -135,6 +136,10 @@
       var fromQuery = new URLSearchParams(window.location.search);
       var id = fromHash.get('id') || fromQuery.get('id') || '';
       var eventId = fromHash.get('event') || fromQuery.get('event') || '';
+      // A QR code's link carries its code too (#id=…&code=TA-…, B-22): step 3
+      // names it, for someone who installs first and comes back.
+      var code = (fromHash.get('code') || fromQuery.get('code') || '').toUpperCase();
+      var hasCode = /^TA-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{5}$/.test(code);
       var isInvite = /^[A-Za-z0-9]{20}$/.test(id);
       var isEvent = !isInvite && /^[a-z0-9]{20}$/.test(eventId);
       var valid = isInvite || isEvent;
@@ -151,6 +156,14 @@
         document.getElementById('copy-status').hidden = false;
         document.getElementById('step3-page').hidden = false;
         document.getElementById('no-id').hidden = true;
+        if (hasCode) {
+          document.getElementById('have-app-hint').hidden = true;
+          document.getElementById('have-app-qr').hidden = false;
+          document.getElementById('step3-link').hidden = true;
+          document.getElementById('step3-qr').hidden = false;
+          var codes = document.querySelectorAll('.qr-code');
+          for (var i = 0; i < codes.length; i++) codes[i].textContent = code;
+        }
         var link = isEvent
           ? 'https://greenorion.net/teeapart/i/#event=' + eventId
           : 'https://greenorion.net/teeapart/i/#id=' + id;
